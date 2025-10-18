@@ -20,15 +20,15 @@ app.post("/mail", async (req, res) => {
     let transport = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "durgacharancse.gist@gmail.com",
-        pass: "pbqd cvkq nekt mobr", 
+        user: "shaikno150@gmail.com",
+        pass: "ubvb xmif edli lrwa", 
       },
     });
 
     await transport.sendMail({
-      from: "durgacharancse.gist@gmail.com",
-      to: "durgacharan@gmail.com",
-      subject: "🚨 ESP32 ALERT!",
+      from: "shaikno150@gmail.com",
+      to: "alimilidurgacharan@gmail.com",
+      subject: "🚨 resberry pi ALERT!",
       text: alert || "Alert from ESP32", 
     });
 
