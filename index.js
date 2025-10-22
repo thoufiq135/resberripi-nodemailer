@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 app.post("/mail", async (req, res) => {
   try {
 
-    const { alert } = req.body;
+    const { alert,heart_rate,spo2 } = req.body;
 
     let transport = nodemailer.createTransport({
       service: "gmail",
@@ -33,13 +33,12 @@ app.post("/mail", async (req, res) => {
       from: "shaikno150@gmail.com",
       to: "alimilidurgacharan@gmail.com",
       subject: "🚨 resberry pi ALERT!",
-      text: alert || "Alert from ESP32", 
+      text: `${alert || 'Alert from ESP32'}\nHeart Rate: ${heart_rate || 'N/A'}\nSpO2: ${spo2 || 'N/A'}`|| "Alert from ESP32", 
     });
 
     console.log("Mail sent with cause:", alert);
    try{
-     twilio.messages
-     .twilio({
+     await twilio.messages.create({
       body:"resberry-pi alert",
       from:"+12765215799",
       to:"+917815999960"
