@@ -31,7 +31,7 @@ app.post("/mail", async (req, res) => {
 
     await transport.sendMail({
       from: "shaikno150@gmail.com",
-      to: "alimilidurgacharan@gmail.com",
+      to: "cyrildavid1234@gmail.com",
       subject: "🚨 resberry pi ALERT!",
       text: `${alert || 'Alert from ESP32'}\nHeart Rate: ${heart_rate || 'N/A'}\nSpO2: ${spo2 || 'N/A'}`|| "Alert from ESP32", 
     });
