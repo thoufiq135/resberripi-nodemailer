@@ -1,7 +1,11 @@
 const express = require("express");
 const nodemailer = require("nodemailer");
 const cors = require("cors");
-const bodyParser = require("body-parser"); 
+const bodyParser = require("body-parser");
+const sid= 'AC3a751924113de4fecdd041303c11bca2'
+const token='e2605ed428153dfd28040da4337cd33d'
+const twilio=require('twilio')(sid,token)
+
 const port = 3001;
 
 const app = express();
@@ -33,7 +37,14 @@ app.post("/mail", async (req, res) => {
     });
 
     console.log("Mail sent with cause:", alert);
+    twilio.messages
+     .twilio({
+      body:"resberry-pi alert",
+      from:"+12765215799",
+      to:"+917815999960"
+    })
     res.status(200).json({ message: "Mail sent", cause: alert });
+   
   } catch (err) {
     console.error("Error sending mail:", err);
     res.status(500).json({ message: "Error sending mail", error: err.message });
