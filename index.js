@@ -20,6 +20,9 @@ app.post("/mail", async (req, res) => {
   try {
 
     const { alert,heart_rate,spo2 } = req.body;
+    console.log("alert=",alert)
+    console.log("heart=",heart_rate)
+    console.log("spo2=",spo2)
 
     let transport = nodemailer.createTransport({
       service: "gmail",
@@ -39,7 +42,7 @@ app.post("/mail", async (req, res) => {
     console.log("Mail sent with cause:", alert);
    try{
      await client.messages.create({
-      body:"resberry-pi alert",
+      body:`${alert || 'Alert from ESP32'}\nHeart Rate: ${heart_rate || 'N/A'}\nSpO2: ${spo2 || 'N/A'}`|| "Alert from ESP32",
       from:"+12765215799",
       to:"+917815999960"
     })
