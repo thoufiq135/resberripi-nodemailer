@@ -37,12 +37,17 @@ app.post("/mail", async (req, res) => {
     });
 
     console.log("Mail sent with cause:", alert);
-    twilio.messages
+   try{
+     twilio.messages
      .twilio({
       body:"resberry-pi alert",
       from:"+12765215799",
       to:"+917815999960"
     })
+    console.log("mail send 🥳")
+   }catch(e){
+    console.log("sms is not send 😥",e)
+   }
     res.status(200).json({ message: "Mail sent", cause: alert });
    
   } catch (err) {
