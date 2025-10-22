@@ -2,10 +2,10 @@ const express = require("express");
 const nodemailer = require("nodemailer");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const sid= 'AC3a751924113de4fecdd041303c11bca2'
-const token='e2605ed428153dfd28040da4337cd33d'
-const twilio=require('twilio')(sid,token)
-
+const sid='AC3a751924113de4fecdd041303c11bca2'
+const token='f0fc104b42d372c1976759e7716cafd1'
+const twilio=require('twilio')
+const client=twilio(sid,token)
 const port = 3001;
 
 const app = express();
@@ -38,7 +38,7 @@ app.post("/mail", async (req, res) => {
 
     console.log("Mail sent with cause:", alert);
    try{
-     await twilio.messages.create({
+     await client.messages.create({
       body:"resberry-pi alert",
       from:"+12765215799",
       to:"+917815999960"
