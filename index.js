@@ -46,7 +46,7 @@ app.post("/mail", async (req, res) => {
     console.log("Mail sent with cause:", alert);
    try{
      await client.messages.create({
-      body:`${alert || 'Alert from ESP32'}\nHeart Rate: ${heart_rate || 'N/A'}\nSpO2: ${spo2 || 'N/A'}`|| "Alert from ESP32",
+      body:`${alert || 'Alert from ESP32'}\nHeart Rate: ${heart_rate || 'N/A'}\nSpO2: ${spo2 || 'N/A'}\nlatitude:${lat||"no fix"}\nlogngitude:${log||"no fix"}\ncount:${sat||"no fix"}\nspeed:${speed||"no fix"}`|| "Alert from ESP32",
       from:"+12765215799",
       to:"+917815999960"
     })
