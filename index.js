@@ -40,13 +40,13 @@ app.post("/mail", async (req, res) => {
       from: "alimilidurgacharan@gmail.com",
       to: "cyrildavid1234@gmail.com",
       subject: "🚨 resberry pi ALERT!",
-      text: `${alert || 'Alert from ESP32'}\nHeart Rate: ${heart_rate || 'N/A'}\nSpO2: ${spo2 || 'N/A'}\nlatitude:${lat||"no fix"}\nlogngitude:${log||"no fix"}\ncount:${sat||"no fix"}\nspeed:${speed||"no fix"}`|| "Alert from ESP32", 
+      text: `${alert || 'Alert from ESP32'}\nHeart Rate: ${heart_rate || 'N/A'}\nSpO2: ${spo2 || 'N/A'}\nlatitude:${lat||"no fix"}\nlogngitude:${log||"no fix"}\ncount:${sat||"no fix"}\nspeed:${speed||"no fix"}\ngps:${lat&&log?`https://maps.google.com/maps?q=${lat},${log}&z=15`:"no fix"}`|| "Alert from ESP32", 
     });
 
     console.log("Mail sent with cause:", alert);
    try{
      await client.messages.create({
-      body:`${alert || 'Alert from ESP32'}\nHeart Rate: ${heart_rate || 'N/A'}\nSpO2: ${spo2 || 'N/A'}\nlatitude:${lat||"no fix"}\nlogngitude:${log||"no fix"}\ncount:${sat||"no fix"}\nspeed:${speed||"no fix"}`|| "Alert from ESP32",
+      body:`${alert || 'Alert from ESP32'}\nHeart Rate: ${heart_rate || 'N/A'}\nSpO2: ${spo2 || 'N/A'}\nlatitude:${lat||"no fix"}\nlogngitude:${log||"no fix"}\ncount:${sat||"no fix"}\nspeed:${speed||"no fix"}\ngps:${lat&&log?`https://maps.google.com/maps?q=${lat},${log}&z=15`:"no fix"}`|| "Alert from ESP32",
       from:"+12765215799",
       to:"+917815999960"
     })
