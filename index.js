@@ -57,6 +57,24 @@ app.post("/mail", async (req, res) => {
     res.status(500).json({ message: "Error sending mail", error: err.message });
   }
 });
+app.post("/heart",async(req,res)=>{
+  const {heart}=req.body;
+  console.log("heart=",heart)
+  let transport=nodemailer.createTransport({
+    service:"gmail",
+    auth:{
+      user:"shaikno150@gmail.com",
+      pass:"ubvb xmif edli lrwa",
+    }
+
+  })
+  await transport.sendMail({
+    from:"shaikno150@gmail.com",
+    to:"cyrildavid1234@gmail.com",
+    subject: "🚨 resberry pi ALERT!",
+      text: `${heart || 'Alert from ESP32'}`, 
+  })
+})
 
 app.listen(port, () => {
   console.log(`The server is running at port ${port}`);
