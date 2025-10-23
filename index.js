@@ -46,7 +46,7 @@ app.post("/mail", async (req, res) => {
       from:"+12765215799",
       to:"+917815999960"
     })
-    console.log("mail send 🥳")
+    console.log("sms send 🥳")
    }catch(e){
     console.log("sms is not send 😥",e)
    }
