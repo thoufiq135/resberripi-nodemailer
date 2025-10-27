@@ -11,6 +11,13 @@ let lat=0
 let log=0
 let sat=0
 let speed=0
+let alerts=0
+const led1s=false
+const led2s=false
+const led3s=false
+const led4s=false
+const heartrate=0
+const spo2s=0
 
 const app = express();
 app.use(cors());
@@ -87,6 +94,32 @@ speed=speeds
   //   subject: "🚨 resberry pi ALERT!",
   //     text: `${heart || 'Alert from ESP32'}`, 
   // })
+})
+app.post("/data",(req,res)=>{
+  
+    const { alert,heart_rate,spo2,led1,led2,led3,led4 } = req.body;
+    if(alert&&heart_rate&&spo2&&led1&&led2&&led3&&led4){
+      console.log(alert)
+      console.log(heart_rate)
+      console.log(spo2)
+      console.log(led1)
+      console.log(led2)
+      console.log(led3)
+      console.log(led4)
+
+      alerts=alert
+      spo2s=spo2
+      heartrate=heart_rate
+      led1s=true
+      led2s=true
+      led3s=true
+      led4s=true      
+    }else{
+      led1s=false
+      led2s=false
+      led3s=false
+      led4s=false
+    }
 })
 
 app.listen(port, () => {
