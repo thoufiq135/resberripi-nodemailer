@@ -119,6 +119,21 @@ app.post("/data", (req, res) => {
 
 app.get("/get_data", (req, res) => {
   console.log("sending data");
+  // let lat = 0;
+// let log = 0;
+// let sat = 0;
+// let speed = 0;
+// let alerts = 0;
+// let led = [false, false, false, false];
+// let heartrate = 0;
+// let spo2s = 0;
+  console.log(lat)
+  console.log(log)
+  console.log(alerts)
+  console.log(led)
+  console.log(heartrate)
+  console.log(spo2s)
+
   res.status(200).json({ lat, log, heartrate, spo2: spo2s, alerts, led });
 });
 
