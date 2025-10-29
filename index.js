@@ -115,6 +115,12 @@ app.post("/data",(req,res)=>{
       led2s=true
       led3s=true
       led4s=true 
+      if(lat&log){
+        console.log(lat)
+        console.log(log)
+      }else{
+        console.log("gps no fix")
+      }
       res.status(200).json({message:"data recived"})     
    
       // led1s=false
