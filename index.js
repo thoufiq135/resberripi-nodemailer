@@ -130,7 +130,10 @@ app.post("/data",(req,res)=>{
   
     
 })
+app.get("/get_data",(req,res)=>{
+console.log("sending data");
 
+})
 app.listen(port, () => {
   console.log(`The server is running at port ${port}`);
 });
