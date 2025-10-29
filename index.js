@@ -13,12 +13,12 @@ let log=0
 let sat=0
 let speed=0
 let alerts=0
-const led1s=false
-const led2s=false
-const led3s=false
-const led4s=false
-const heartrate=0
-const spo2s=0
+let led1s=false
+let led2s=false
+let led3s=false
+let led4s=false
+let heartrate=0
+let spo2s=0
 
 const app = express();
 app.use(cors());
