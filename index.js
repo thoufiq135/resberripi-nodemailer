@@ -99,7 +99,7 @@ speed=speeds
 app.post("/data",(req,res)=>{
   
     const { alert,heart_rate,spo2,led1,led2,led3,led4 } = req.body;
-    if(alert&&heart_rate&&spo2&&led1&&led2&&led3&&led4){
+
       console.log(alert)
       console.log(heart_rate)
       console.log(spo2)
@@ -116,13 +116,13 @@ app.post("/data",(req,res)=>{
       led3s=true
       led4s=true 
       res.status(200).json({message:"data recived"})     
-    }else{
-      led1s=false
-      led2s=false
-      led3s=false
-      led4s=false
-      res.status(401).json({message:"data not recived"})  
-    }
+   
+      // led1s=false
+      // led2s=false
+      // led3s=false
+      // led4s=false
+  
+    
 })
 
 app.listen(port, () => {
