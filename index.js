@@ -96,32 +96,34 @@ speed=speeds
   //     text: `${heart || 'Alert from ESP32'}`, 
   // })
 })
-// app.post("/data",(req,res)=>{
+app.post("/data",(req,res)=>{
   
-//     const { alert,heart_rate,spo2,led1,led2,led3,led4 } = req.body;
-//     if(alert&&heart_rate&&spo2&&led1&&led2&&led3&&led4){
-//       console.log(alert)
-//       console.log(heart_rate)
-//       console.log(spo2)
-//       console.log(led1)
-//       console.log(led2)
-//       console.log(led3)
-//       console.log(led4)
+    const { alert,heart_rate,spo2,led1,led2,led3,led4 } = req.body;
+    if(alert&&heart_rate&&spo2&&led1&&led2&&led3&&led4){
+      console.log(alert)
+      console.log(heart_rate)
+      console.log(spo2)
+      console.log(led1)
+      console.log(led2)
+      console.log(led3)
+      console.log(led4)
 
-//       alerts=alert
-//       spo2s=spo2
-//       heartrate=heart_rate
-//       led1s=true
-//       led2s=true
-//       led3s=true
-//       led4s=true      
-//     }else{
-//       led1s=false
-//       led2s=false
-//       led3s=false
-//       led4s=false
-//     }
-// })
+      alerts=alert
+      spo2s=spo2
+      heartrate=heart_rate
+      led1s=true
+      led2s=true
+      led3s=true
+      led4s=true 
+      res.status(200).json({message:"data recived"})     
+    }else{
+      led1s=false
+      led2s=false
+      led3s=false
+      led4s=false
+      res.status(401).json({message:"data not recived"})  
+    }
+})
 
 app.listen(port, () => {
   console.log(`The server is running at port ${port}`);
