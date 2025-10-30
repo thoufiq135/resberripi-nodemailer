@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const twilio = require("twilio");
 
 const sid = "ACa0781109e905dea1df67c69e979894d6";
-const token = "fd90445d691958f2286f33892cdddb65";
+const token = "8567e2edaabe644a18afd99b1db9c86a";
 const client = twilio(sid, token);
 
 const port = 3001;
