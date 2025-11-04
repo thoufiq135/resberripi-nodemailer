@@ -20,7 +20,11 @@ let heartrate = 0;
 let spo2s = 0;
 let alertEmails = [
   "shaikno150@gmail.com",
-  "cyrildavid1234@gmail.com"
+  "cyrildavid1234@gmail.com",
+  "arunajetti.aj@gmail.com",
+  "n23092399@gmail.com",
+  "mundlapudiniharreddy@gmail.com",
+  
 ];
 
 let alertPhones = [
@@ -44,8 +48,8 @@ app.post("/mail", async (req, res) => {
     const transport = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "alimilidurgacharan@gmail.com",
-        pass: "usxi rswa qmih lalg",
+        user: "neeljetti.nj@gmail.com",
+        pass: "tjqt ljda ktyq upta",
       },
     });
 
