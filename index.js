@@ -4,8 +4,8 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const twilio = require("twilio");
 
-const sid = "ACa0781109e905dea1df67c69e979894d6";
-const token = "8567e2edaabe644a18afd99b1db9c86a";
+const sid = "ACd79faba01aec4fcbadc182a63f1eaf14";
+const token = "9efd6ab9e4288f51cbb704b447d540c8";
 const client = twilio(sid, token);
 
 const port = 3001;
@@ -28,7 +28,7 @@ let alertEmails = [
 ];
 
 let alertPhones = [
-  "+917815999960"
+  "+919346292757"
 ];
 const app = express();
 app.use(cors());
@@ -78,7 +78,7 @@ app.post("/mail", async (req, res) => {
       try {
         await client.messages.create({
           body: message,
-          from: "+18158498059",
+          from: "+15073354424",
           to: num,
         });
         console.log("SMS sent to:", num);
