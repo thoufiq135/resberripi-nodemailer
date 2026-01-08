@@ -25,6 +25,7 @@ let sns=0;
 let stress=0;
 
 let alertEmails = [
+  
   "shaikno150@gmail.com",
   "cyrildavid1234@gmail.com",
   "arunajetti.aj@gmail.com",
@@ -41,7 +42,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
-  res.send("<h1>Hello world</h1>");
+  res.send("<h1>contact thoufiq</h1>");
 });
 
 app.post("/mail", async (req, res) => {
