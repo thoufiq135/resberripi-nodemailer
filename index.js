@@ -66,13 +66,13 @@ Satellites: ${sat || 0}
 Speed     : ${speed || 0} km/h
 
 🧠 HEART & ANS DATA
-Heart Rate : ${HR || "N/A"} bpm
-IBI        : ${IBI || "N/A"} ms
-RMSSD     : ${RMSSD || "N/A"}
-SDNN      : ${SDNN || "N/A"}
-PNS Index : ${PNS || "N/A"}
-SNS Index : ${SNS || "N/A"}
-Stress    : ${Stress || "N/A"}
+Heart Rate : ${hr || "N/A"} bpm
+IBI        : ${ibi || "N/A"} ms
+RMSSD     : ${rmssd || "N/A"}
+SDNN      : ${sdnn|| "N/A"}
+PNS Index : ${pns || "N/A"}
+SNS Index : ${sns || "N/A"}
+Stress    : ${stress || "N/A"}
 
 ⚠️ SYSTEM STATUS
 Alerts Count : ${alerts}
