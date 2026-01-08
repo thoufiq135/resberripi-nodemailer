@@ -40,10 +40,8 @@ app.get("/", (req, res) => {
 
 app.post("/mail", async (req, res) => {
   try {
-    const { alert, heart_rate, spo2 } = req.body;
-    console.log("alert=", alert);
-    console.log("heart=", heart_rate);
-    console.log("spo2=", spo2);
+    const { alert} = req.body;
+
 
     const transport = nodemailer.createTransport({
       service: "gmail",
@@ -54,10 +52,10 @@ app.post("/mail", async (req, res) => {
     });
 
     const message = `${alert || "Alert from ESP32"}\nHeart Rate: ${
-      heart_rate || "N/A"
-    }\nSpO2: ${spo2 || "N/A"}\nlatitude:${lat || "no fix"}\nlongitude:${
+      heartrate || "N/A"
+    }\nSpO2: ${spo2s || "N/A"}\nlatitude:${lat || "no fix"}\nlongitude:${
       log || "no fix"
-    }\ncount:${sat || "no fix"}\nspeed:${speed || "no fix"}\ngps:${
+    }\ngps:${
       lat && log
         ? `https://maps.google.com/maps?q=${lat},${log}&z=15`
         : "no fix"
@@ -97,17 +95,20 @@ app.post("/mail", async (req, res) => {
 
 
 app.post("/gps", async (req, res) => {
-  const { latitude, logngitude, sati, speeds } = req.body;
+  const { latitude, logngitude, sati, speeds,heart_rate,spo2 } = req.body;
   console.log("lat=", latitude);
   console.log("log=", logngitude);
   console.log("sat=", sati);
   console.log("speed=", speeds);
-
+console.log(heartrate)
+console.log(spo2)
   if (latitude && logngitude && sati && speeds) {
     lat = latitude;
     log = logngitude;
     sat = sati;
     speed = speeds;
+    spo2s=spo2
+    heartrate=heart_rate
   }
 
   res.status(200).json({ message: "GPS data updated" });
@@ -119,7 +120,7 @@ app.post("/data", (req, res) => {
   alerts = alert;
   spo2s = spo2;
   heartrate = heart_rate;
-  led = [led1, led2, led3, led4]; // store all LED states in array
+  led = [led1, led2, led3, led4];
 
   console.log({ lat, log, alerts, heartrate, spo2s, led });
 
@@ -128,14 +129,7 @@ app.post("/data", (req, res) => {
 
 app.get("/get_data", (req, res) => {
   console.log("sending data");
-  // let lat = 0;
-// let log = 0;
-// let sat = 0;
-// let speed = 0;
-// let alerts = 0;
-// let led = [false, false, false, false];
-// let heartrate = 0;
-// let spo2s = 0;
+ 
   console.log(lat)
   console.log(log)
   console.log(alerts)
