@@ -4,8 +4,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const twilio = require("twilio");
 
-const sid = "ACd79faba01aec4fcbadc182a63f1eaf14";
-const token = "2c600c6d0618f3990022037f1d7caa6a";
+
 const client = twilio(sid, token);
 
 const port = 3001;
@@ -16,8 +15,14 @@ let sat = 0;
 let speed = 0;
 let alerts = 0;
 let led = [false, false, false, false];
-let heartrate = 0;
-let spo2s = 0;
+let ibi = 0;
+let hr = 0;
+let rmssd=0;
+let sdnn=0;
+let pns=0;
+let sns=0;
+let stress=0;
+
 let alertEmails = [
   "shaikno150@gmail.com",
   "cyrildavid1234@gmail.com",
@@ -40,8 +45,7 @@ app.get("/", (req, res) => {
 
 app.post("/mail", async (req, res) => {
   try {
-    const { alert} = req.body;
-
+    const { alert } = req.body;
 
     const transport = nodemailer.createTransport({
       service: "gmail",
@@ -51,78 +55,94 @@ app.post("/mail", async (req, res) => {
       },
     });
 
-    const message = `${alert || "Alert from ESP32"}\nHeart Rate: ${
-      heartrate || "N/A"
-    }\nSpO2: ${spo2s || "N/A"}\nlatitude:${lat || "no fix"}\nlongitude:${
-      log || "no fix"
-    }\ngps:${
-      lat && log
-        ? `https://maps.google.com/maps?q=${lat},${log}&z=15`
-        : "no fix"
-    }`;
+    const message = `
+🚨 ALERT FROM ESP32 🚨
 
-  
-    for (const mail of alertEmails) {
-      await transport.sendMail({
-        from: "alimilidurgacharan@gmail.com",
-        to: mail,
-        subject: "🚨 Raspberry Pi ALERT!",
-        text: message,
-      });
-      console.log("Mail sent to:", mail);
-    }
+📍 GPS DATA
+Latitude  : ${lat || "No Fix"}
+Longitude : ${log || "No Fix"}
+Satellites: ${sat || 0}
+Speed     : ${speed || 0} km/h
 
-    for (const num of alertPhones) {
-      try {
-        await client.messages.create({
-          body: message,
-          from: "+15073354424",
-          to: num,
-        });
-        console.log("SMS sent to:", num);
-      } catch (e) {
-        console.log(`SMS not sent to ${num}`, e);
-      }
-    }
+🧠 HEART & ANS DATA
+Heart Rate : ${HR || "N/A"} bpm
+IBI        : ${IBI || "N/A"} ms
+RMSSD     : ${RMSSD || "N/A"}
+SDNN      : ${SDNN || "N/A"}
+PNS Index : ${PNS || "N/A"}
+SNS Index : ${SNS || "N/A"}
+Stress    : ${Stress || "N/A"}
 
-    res.status(200).json({ message: "Alerts sent", cause: alert });
+⚠️ SYSTEM STATUS
+Alerts Count : ${alerts}
+LED Status   : ${led.map((v, i) => `LED${i + 1}:${v ? "ON" : "OFF"}`).join(", ")}
+
+🗺 Location Link:
+${
+  lat && log
+    ? `https://maps.google.com/maps?q=${lat},${log}&z=15`
+    : "No GPS Fix"
+}
+
+📝 Message:
+${alert || "No custom alert message"}
+`;
+
+    await transport.sendMail({
+      from: "ESP32 ALERT <neeljetti.nj@gmail.com>",
+      to: alertEmails.join(","),
+      subject: "🚨 ESP32 Health & Location Alert",
+      text: message,
+    });
+
+    res.status(200).json({ success: true, message: "Mail sent" });
 
   } catch (err) {
-    console.error("Error sending alerts:", err);
-    res.status(500).json({ message: "Error sending alerts", error: err.message });
+    console.error(err);
+    res.status(500).json({ error: "Mail sending failed" });
   }
 });
 
 
+
 app.post("/gps", async (req, res) => {
-  const { latitude, logngitude, sati, speeds,heart_rate,spo2 } = req.body;
+  const { latitude, logngitude, sati, speeds, IBI,HR,RMSSD,SDNN,PNS,SNS,Stress} = req.body;
   console.log("lat=", latitude);
   console.log("log=", logngitude);
   console.log("sat=", sati);
   console.log("speed=", speeds);
-console.log(heartrate)
-console.log(spo2)
-  if (latitude && logngitude && sati && speeds) {
+console.log(IBI)
+console.log(HR)
+console.log(RMSSD)
+console.log(SDNN)
+console.log(PNS)
+console.log(SNS)
+console.log(Stress)
+  if (latitude && logngitude && sati && speeds&&IBI&&HR&&RMSSD&&SDNN&&PNS&&SNS&&Stress) {
     lat = latitude;
     log = logngitude;
     sat = sati;
     speed = speeds;
-    spo2s=spo2
-    heartrate=heart_rate
+    ibi=IBI
+    hr=HR
+    rmssd=RMSSD
+    sdnn=SDNN
+    pns=PNS
+    sns=SNS
+    stress=Stress
   }
 
   res.status(200).json({ message: "GPS data updated" });
 });
 
 app.post("/data", (req, res) => {
-  const { alert, heart_rate, spo2, led1, led2, led3, led4 } = req.body;
+  const { alert,  led1, led2, led3, led4 } = req.body;
 
   alerts = alert;
-  spo2s = spo2;
-  heartrate = heart_rate;
+
   led = [led1, led2, led3, led4];
 
-  console.log({ lat, log, alerts, heartrate, spo2s, led });
+  console.log({  alerts, led });
 
   res.status(200).json({ message: "Data received" });
 });
@@ -137,7 +157,7 @@ app.get("/get_data", (req, res) => {
   console.log(heartrate)
   console.log(spo2s)
 
-  res.status(200).json({ lat, log, heartrate, spo2: spo2s, alerts, led });
+  res.status(200).json({ lat, log, heartrate,  spo2s, alerts, led,ibi,hr,rmssd,sdnn,pns,sns,stress });
 });
 
 app.listen(port, () => {
