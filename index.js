@@ -154,6 +154,7 @@ app.get("/get_data", (req, res) => {
  
   console.log(lat)
   console.log(log)
+  console.log(ibi)
   console.log(alerts)
   console.log(led)
   
