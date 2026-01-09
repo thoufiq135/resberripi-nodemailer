@@ -120,7 +120,7 @@ console.log(SDNN)
 console.log(PNS)
 console.log(SNS)
 console.log(Stress)
-  if (latitude && logngitude && sati && speeds&&IBI&&HR&&RMSSD&&SDNN&&PNS&&SNS&&Stress) {
+  if (latitude || logngitude || sati || speeds||IBI||HR||RMSSD||SDNN||PNS||SNS||Stress) {
     lat = latitude;
     log = logngitude;
     sat = sati;
