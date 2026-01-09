@@ -159,7 +159,7 @@ app.get("/get_data", (req, res) => {
   console.log(heartrate)
   console.log(spo2s)
 
-  res.status(200).json({ lat, log, heartrate,  spo2s, alerts, led,ibi,hr,rmssd,sdnn,pns,sns,stress });
+  res.status(200).json({ lat, log,  alerts, led,ibi,hr,rmssd,sdnn,pns,sns,stress });
 });
 
 app.listen(port, () => {
