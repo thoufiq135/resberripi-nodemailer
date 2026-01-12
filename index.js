@@ -45,122 +45,122 @@ app.get("/", (req, res) => {
   res.send("<h1>server down</h1>");
 });
 
-// app.post("/mail", async (req, res) => {
-//   try {
-//     const { alert } = req.body;
+app.post("/mail", async (req, res) => {
+  try {
+    const { alert } = req.body;
 
-//     const transport = nodemailer.createTransport({
-//       service: "gmail",
-//       auth: {
-//         user: "neeljetti.nj@gmail.com",
-//         pass: "tjqt ljda ktyq upta",
-//       },
-//     });
+    const transport = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "neeljetti.nj@gmail.com",
+        pass: "tjqt ljda ktyq upta",
+      },
+    });
 
-//     const message = `
-// 🚨 ALERT FROM ESP32 🚨
+    const message = `
+🚨 ALERT FROM ESP32 🚨
 
-// 📍 GPS DATA
-// Latitude  : ${lat || "No Fix"}
-// Longitude : ${log || "No Fix"}
-// Satellites: ${sat || 0}
-// Speed     : ${speed || 0} km/h
+📍 GPS DATA
+Latitude  : ${lat || "No Fix"}
+Longitude : ${log || "No Fix"}
+Satellites: ${sat || 0}
+Speed     : ${speed || 0} km/h
 
-// 🧠 HEART & ANS DATA
-// Heart Rate : ${hr || "N/A"} bpm
-// IBI        : ${ibi || "N/A"} ms
-// RMSSD     : ${rmssd || "N/A"}
-// SDNN      : ${sdnn|| "N/A"}
-// PNS Index : ${pns || "N/A"}
-// SNS Index : ${sns || "N/A"}
-// Stress    : ${stress || "N/A"}
+🧠 HEART & ANS DATA
+Heart Rate : ${hr || "N/A"} bpm
+IBI        : ${ibi || "N/A"} ms
+RMSSD     : ${rmssd || "N/A"}
+SDNN      : ${sdnn|| "N/A"}
+PNS Index : ${pns || "N/A"}
+SNS Index : ${sns || "N/A"}
+Stress    : ${stress || "N/A"}
 
-// ⚠️ SYSTEM STATUS
-// Alerts Count : ${alerts}
-// LED Status   : ${led.map((v, i) => `LED${i + 1}:${v ? "ON" : "OFF"}`).join(", ")}
+⚠️ SYSTEM STATUS
+Alerts Count : ${alerts}
+LED Status   : ${led.map((v, i) => `LED${i + 1}:${v ? "ON" : "OFF"}`).join(", ")}
 
-// 🗺 Location Link:
-// ${
-//   lat && log
-//     ? `https://maps.google.com/maps?q=${lat},${log}&z=15`
-//     : "No GPS Fix"
-// }
+🗺 Location Link:
+${
+  lat && log
+    ? `https://maps.google.com/maps?q=${lat},${log}&z=15`
+    : "No GPS Fix"
+}
 
-// 📝 Message:
-// ${alert || "No custom alert message"}
-// `;
+📝 Message:
+${alert || "No custom alert message"}
+`;
 
-//     await transport.sendMail({
-//       from: "ESP32 ALERT <neeljetti.nj@gmail.com>",
-//       to: alertEmails.join(","),
-//       subject: "🚨 ESP32 Health & Location Alert",
-//       text: message,
-//     });
+    await transport.sendMail({
+      from: "ESP32 ALERT <neeljetti.nj@gmail.com>",
+      to: alertEmails.join(","),
+      subject: "🚨 ESP32 Health & Location Alert",
+      text: message,
+    });
 
-//     res.status(200).json({ success: true, message: "Mail sent" });
+    res.status(200).json({ success: true, message: "Mail sent" });
 
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ error: "Mail sending failed" });
-//   }
-// });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Mail sending failed" });
+  }
+});
 
 
 
-// app.post("/gps", async (req, res) => {
-//   const { latitude, logngitude, sati, speeds, IBI,HR,RMSSD,SDNN,PNS,SNS,Stress} = req.body;
-//   console.log("lat=", latitude);
-//   console.log("log=", logngitude);
-//   console.log("sat=", sati);
-//   console.log("speed=", speeds);
-// console.log(IBI)
-// console.log(HR)
-// console.log(RMSSD)
-// console.log(SDNN)
-// console.log(PNS)
-// console.log(SNS)
-// console.log(Stress)
-//   if (latitude || logngitude || sati || speeds||IBI||HR||RMSSD||SDNN||PNS||SNS||Stress) {
-//     lat = latitude;
-//     log = logngitude;
-//     sat = sati;
-//     speed = speeds;
-//     ibi=IBI
-//     hr=HR
-//     rmssd=RMSSD
-//     sdnn=SDNN
-//     pns=PNS
-//     sns=SNS
-//     stress=Stress
-//   }
+app.post("/gps", async (req, res) => {
+  const { latitude, logngitude, sati, speeds, IBI,HR,RMSSD,SDNN,PNS,SNS,Stress} = req.body;
+  console.log("lat=", latitude);
+  console.log("log=", logngitude);
+  console.log("sat=", sati);
+  console.log("speed=", speeds);
+console.log(IBI)
+console.log(HR)
+console.log(RMSSD)
+console.log(SDNN)
+console.log(PNS)
+console.log(SNS)
+console.log(Stress)
+  if (latitude || logngitude || sati || speeds||IBI||HR||RMSSD||SDNN||PNS||SNS||Stress) {
+    lat = latitude;
+    log = logngitude;
+    sat = sati;
+    speed = speeds;
+    ibi=IBI
+    hr=HR
+    rmssd=RMSSD
+    sdnn=SDNN
+    pns=PNS
+    sns=SNS
+    stress=Stress
+  }
 
-//   res.status(200).json({ message: "GPS data updated" });
-// });
+  res.status(200).json({ message: "GPS data updated" });
+});
 
-// app.post("/data", (req, res) => {
-//   const { alert,  led1, led2, led3, led4 } = req.body;
+app.post("/data", (req, res) => {
+  const { alert,  led1, led2, led3, led4 } = req.body;
 
-//   alerts = alert;
+  alerts = alert;
 
-//   led = [led1, led2, led3, led4];
+  led = [led1, led2, led3, led4];
 
-//   console.log({  alerts, led });
+  console.log({  alerts, led });
 
-//   res.status(200).json({ message: "Data received" });
-// });
+  res.status(200).json({ message: "Data received" });
+});
 
-// app.get("/get_data", (req, res) => {
-//   console.log("sending data");
+app.get("/get_data", (req, res) => {
+  console.log("sending data");
  
-//   console.log(lat)
-//   console.log(log)
-//   console.log(ibi)
-//   console.log(alerts)
-//   console.log(led)
+  console.log(lat)
+  console.log(log)
+  console.log(ibi)
+  console.log(alerts)
+  console.log(led)
   
 
-//   res.status(200).json({ lat, log,  alerts, led,ibi,hr,rmssd,sdnn,pns,sns,stress });
-// });
+  res.status(200).json({ lat, log,  alerts, led,ibi,hr,rmssd,sdnn,pns,sns,stress });
+});
 
 app.listen(port, () => {
   console.log(`The server is running at port ${port}`);
